@@ -1,0 +1,15 @@
+#root {
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+}
+
+#root:after {
+  content: 'our long-running task is the 2000 nodes being added below the fold';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem;
+  background: pink;
+}
