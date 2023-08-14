@@ -1,10 +1,10 @@
-#root {
+.above-the-fold {
   display: grid;
   min-height: 100vh;
   place-content: center;
 }
 
-#root:after {
+.above-the-fold:after {
   content: 'our long-running task is the 2000 nodes being added below the fold';
   position: absolute;
   bottom: 0;
