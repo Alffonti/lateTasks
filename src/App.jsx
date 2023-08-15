@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 import { loadScript } from './load-script.js'
 
 function App() {
@@ -8,26 +9,31 @@ function App() {
     event.preventDefault()
     console.log(query)
   }
+  const [ref, inView] = useInView({
+    threshold: 0,
+    triggerOnce: true,
+  })
 
   useEffect(() => {
-    window.requestIdleCallback(() => loadScript('/count-appender.js'))
-  }, [])
+    if (inView) {
+      loadScript('/count-appender.js')
+    }
+  }, [inView])
 
   return (
     <>
       <div className="above-the-fold">
         <form onSubmit={submit}>
-          <h2>Idle Callback Searcher</h2>
+          <h2>Observer Searcher</h2>
           <input
             value={query}
             onChange={onChange}
-            className="App-input"
             placeholder="Enter your search"
           />
           <button type="submit">Search</button>
         </form>
       </div>
-      <div id="appendZone"></div> {/* <- no longer on the index.html */}
+      <div id="appendZone" ref={ref}></div> {/* <- our target via ref */}
     </>
   )
 }
